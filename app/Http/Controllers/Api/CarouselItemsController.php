@@ -28,15 +28,6 @@ class CarouselItemsController extends Controller
 
         $carouselItem = CarouselItems::create($validated);
         
-        /* 
-        $carouselItem = CarouselItems::create([
-        
-           'carousel_name' =>$request->carousel_name,
-        'image_path'    =>$request->image_path,
-        'description'   =>$request->description,
-        'user_id'       =>$request->user_id,
-        ]);*/
-
         return $carouselItem;
     }
 
@@ -51,9 +42,15 @@ class CarouselItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CarouselItemsRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+
+        $carouselItem = CarouselItems::findOrFail($id);
+                                
+        $carouselItem->update($validated);
+        
+        return $carouselItem;
     }
 
     /**
